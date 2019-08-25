@@ -1,12 +1,16 @@
 #include <Thread.h>
 
 // use this to build for UNO (development) or MEGA (release)
-#define UNO
+#define MEGA
 
 #ifdef UNO
 #define R1 5
 #define G1 6
 #define B1 3
+
+#define RECV_PIN 7
+#define RXPIN 12
+#define TXPIN 8
 #endif
 
 #ifdef MEGA
@@ -25,14 +29,20 @@
 #define R4 11
 #define G4 12
 #define B4 13
+
+#define RECV_PIN 52
+#define RXPIN A11
+#define TXPIN A10
 #endif
 
 Thread IRThread = Thread();
 Thread AnimationThread = Thread();
+Thread AmbilightThread = Thread();
 
 //yeah it's wrong to have everything in .h instead of splitted into .h and .cpp - just couldn't be bothered ...
 #include "Color.h"
 #include "Animation.h"
+#include "Ambilight.h"
 #include "IR.h"
 
 void setup()
@@ -56,13 +66,19 @@ void setup()
 #endif
 
   //Serial.begin(9600);
+  //initialize bluetooth serial
+  BT.begin(9600);
+
   irrecv.enableIRIn(); // Start the receiver
 
   IRThread.onRun(readIRCode);
-  IRThread.setInterval(200);
+  IRThread.setInterval(10);
 
   AnimationThread.onRun(animate);
-  AnimationThread.setInterval(10);
+  AnimationThread.setInterval(5);
+
+  AmbilightThread.onRun(ambilight);
+  AmbilightThread.setInterval(10);
 }
 
 void loop() {
@@ -73,5 +89,10 @@ void loop() {
   if ( ( currentanim > ANIM_OFF )
        && AnimationThread.shouldRun()) {
     AnimationThread.run();
+  }
+
+  if ( ambilightActive
+       && AmbilightThread.shouldRun() ) {
+    AmbilightThread.run();
   }
 }

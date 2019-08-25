@@ -11,7 +11,8 @@ struct myRGB {
 myRGB currentcolor = {0, 0, 0};
 extern const uint8_t gamma8[];
 RGBConverter RGBConv;
-myRGB randomColors[7] = { { 235,  52, 52 },
+myRGB randomColors[7] = {
+  { 235,  52, 52 },
   { 235, 171, 52 },
   { 122, 235, 52 },
   { 52, 235, 201 },

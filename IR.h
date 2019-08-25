@@ -2,14 +2,6 @@
 #define IR.h
 #include <IRremote.h>
 
-#ifdef UNO
-int RECV_PIN = 7;
-#endif
-
-#ifdef MEGA
-int RECV_PIN = 52;
-#endif
-
 IRrecv irrecv(RECV_PIN);
 decode_results results;
 int lastcode = 0;
@@ -45,6 +37,7 @@ void readIRCode() {
           break;
         case 0xff827d: //play (ambilight)
           currentanim = ANIM_OFF;
+          ambilightActive = !ambilightActive;
           break;
         case 0xff02fd: //On/Off
           currentanim = ANIM_OFF;
