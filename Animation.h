@@ -50,15 +50,12 @@ int calculateStep(int prevValue, int endValue) {
 }
 
 int calculateVal(int step, int val, int i) {
-  Serial.print("CalculateVal triggered step="); Serial.print(step);
-  Serial.print(" val="); Serial.print(val);
-  Serial.print(" i="); Serial.println(i);
   if ((step) && i % step == 0) { // If step is non-zero and its time to change a value,
     if (step > 0) {              //   increment the value if step is positive...
-      val += 1;       Serial.println("inc val");
+      val += 1;
     }
     else if (step < 0) {         //   ...or decrement it if step is negative
-      val -= 1; Serial.println("dec val");
+      val -= 1;
     }
   }
   // Defensive driving: make sure val stays in the range 0-255
@@ -68,7 +65,6 @@ int calculateVal(int step, int val, int i) {
   else if (val < 0) {
     val = 0;
   }
-  Serial.print("val="); Serial.println(val);
   return val;
 }
 

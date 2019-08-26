@@ -1,0 +1,31 @@
+/**
+   PIN MAPPINGS OF AMBILIGHT v2 fzz
+
+    Zone 1
+    R = D4
+    G = D3
+    B = D2
+
+    Zone 2
+    R = D7
+    G = D6
+    B = D5
+
+    Zone 3
+    R = D8
+    G = D9
+    B = D10
+
+    Zone 4
+    R = D11
+    G = D12
+    B = D13
+
+
+    IR
+    DCD = D52
+
+    Temp.
+    DCD = A7
+
+*/
