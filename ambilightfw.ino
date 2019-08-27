@@ -75,10 +75,10 @@ void setup()
   IRThread.setInterval(10);
 
   AnimationThread.onRun(animate);
-  AnimationThread.setInterval(5);
+  AnimationThread.setInterval(10);
 
   AmbilightThread.onRun(ambilight);
-  AmbilightThread.setInterval(10);
+  AmbilightThread.setInterval(5);
 }
 
 void loop() {
