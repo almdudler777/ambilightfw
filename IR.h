@@ -29,7 +29,7 @@ void readIRCode() {
       switch (currentcode) {
         case 0xff3ac5: //helligkeit hoch
           currentanim = ANIM_OFF;
-          ambilightActive = false;
+          ambilightActive = false;        
           setColor(0, brighter(currentcolor));
           break;
         case 0xffba45: //Helligkeit runter

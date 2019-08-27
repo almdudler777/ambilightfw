@@ -12,13 +12,13 @@ myRGB currentcolor = {0, 0, 0};
 extern const uint8_t gamma8[];
 RGBConverter RGBConv;
 myRGB randomColors[7] = {
-  { 235,  52, 52 },
-  { 235, 171, 52 },
-  { 122, 235, 52 },
-  { 52, 235, 201 },
-  { 52, 122, 235 },
-  { 128, 52, 235 },
-  { 255, 255, 0  }
+  { 255, 0, 0   },
+  { 60, 255, 0  },
+  { 255, 0, 255 },
+  { 255, 225, 0 },
+  { 0, 17, 255  },
+  { 0, 255, 217 },
+  { 255, 132, 0 }
 };
 
 void setColor(short zone, myRGB color) {
@@ -92,9 +92,9 @@ myRGB setLuminance(double luminance, myRGB color) {
 myRGB brighter(myRGB color) {
   double luminance = getLuminance(color);
 
-  luminance += 0.1d;
-  if (luminance > 0.8d) {
-    luminance = 0.8d;
+  luminance += 0.05d;
+  if (luminance > 1.0d) {
+    luminance = 1.0d;
   }
 
   return setLuminance(luminance, color);
@@ -103,9 +103,9 @@ myRGB brighter(myRGB color) {
 myRGB dimmer(myRGB color) {
   double luminance = getLuminance(color);
 
-  luminance -= 0.1d;
-  if (luminance < 0.1d) {
-    luminance = 0.1d;
+  luminance -= 0.05d;
+  if (luminance < 0.05d) {
+    luminance = 0.05d;
   }
 
   return setLuminance(luminance, color);

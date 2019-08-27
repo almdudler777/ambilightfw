@@ -11,8 +11,8 @@ boolean animfast = false;
 short currentanim = ANIM_OFF;
 
 /* BELOW THIS LINE IS THE MATH -- YOU SHOULDN'T NEED TO CHANGE THIS FOR THE BASICS
- *  
- *  ##### TAKEN FROM THE ARDUINO TUTORIALS #####
+
+    ##### TAKEN FROM THE ARDUINO TUTORIALS #####
 
   The program works like this:
   Imagine a crossfade that moves the red LED from 0-10,
@@ -85,6 +85,9 @@ void animate() {
   static int stepG = 0;
   static int stepB = 0;
 
+  //anim flash
+  static int flashstate = 0;
+
   //only run when animation is needed
   if ( currentanim > ANIM_OFF ) {
     switch (currentanim) {
@@ -100,7 +103,7 @@ void animate() {
                && ( ++currentRandomColor > 6 ) )
             currentRandomColor = 0;
 
-          setColor(0, randomColors[currentRandomColor]);
+          setGammaCorrectedColor(0, randomColors[currentRandomColor]);
 
           if ( animfast ) {
             nextRun = millis() + 1000;
@@ -114,7 +117,7 @@ void animate() {
       case ANIM_FADE7:
         if ( nextRun < millis() ) {
           //re-initialize if step is over 1020
-          if ( i > 1020 ) { //1020
+          if ( i > 510 ) { //1020
             i = 0;
           }
 
@@ -151,6 +154,45 @@ void animate() {
           i++;
 
           nextRun = 0; //run as fast as possible
+        }
+        break;
+
+      case ANIM_FLASH:
+        if ( nextRun < millis() ) {
+          switch (flashstate) {
+            case 0:
+              if ( ++currentRandomColor > 6 )
+                currentRandomColor = 0;
+              setColor(0, randomColors[currentRandomColor]);
+              nextRun = millis() + 600;
+              flashstate++;
+              break;
+            case 1:
+              setColor(0, {0, 0, 0});
+              nextRun = millis() + 300;
+              flashstate++;
+              break;
+            case 2:
+              setColor(0, randomColors[currentRandomColor]);
+              nextRun = millis() + 350;
+              flashstate++;
+              break;
+            case 3:
+              setColor(0, {0, 0, 0});
+              nextRun = millis() + 120;
+              flashstate++;
+              break;
+            case 4:
+              setColor(0, randomColors[currentRandomColor]);
+              nextRun = millis() + 300;
+              flashstate++;
+              break;
+            case 5:
+              setColor(0, {0, 0, 0});
+              nextRun = millis() + 1500;
+              flashstate = 0;
+              break;
+          }
         }
         break;
     }
