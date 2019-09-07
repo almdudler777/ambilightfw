@@ -39,6 +39,7 @@ void readIRCode() {
           break;
         case 0xff827d: //play (ambilight)
           currentanim = ANIM_OFF;
+          setColor(0, {0, 0, 0});
           ambilightActive = true;
           break;
         case 0xff02fd: //On/Off

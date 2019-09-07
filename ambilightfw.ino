@@ -1,7 +1,7 @@
 #include <Thread.h>
 
 // use this to build for UNO (development) or MEGA (release)
-#define MEGA
+#define UNO
 
 #ifdef UNO
 #define R1 5
@@ -64,10 +64,8 @@ void setup()
   pinMode(G4, OUTPUT); analogWrite(G4, 0);
   pinMode(B4, OUTPUT); analogWrite(B4, 0);
 #endif
-
   //Serial.begin(9600);
-  //initialize bluetooth serial
-  BT.begin(9600);
+  AMBISERIAL.begin(38400);
 
   irrecv.enableIRIn(); // Start the receiver
 
@@ -75,10 +73,10 @@ void setup()
   IRThread.setInterval(10);
 
   AnimationThread.onRun(animate);
-  AnimationThread.setInterval(10);
+  AnimationThread.setInterval(5);
 
   AmbilightThread.onRun(ambilight);
-  AmbilightThread.setInterval(5);
+  AmbilightThread.setInterval(1);
 }
 
 void loop() {
